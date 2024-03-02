@@ -1,12 +1,13 @@
 import numpy as np
 import casadi as cs
 
-M = cs.Function.load('csfn_mass_matrix.casadi')
-print("[Mass Matrix]")
-print("M =",M)
-print("M(np.zeros(7)) =",M(np.zeros(7)))
+cf_fd = cs.Function.load('csfn_forward_dynamics.casadi')
+print("[Forward Dynamics]")
+print("cf_fd =",cf_fd)
+zeoro7 = np.zeros(7)
+print("cf_fd(0,0,0) =",cf_fd(zeoro7,zeoro7,zeoro7))
 
-b = cs.Function.load('csfn_bias_term.casadi')
-print("\n[Bias Term]")
-print("b =",b)
-print("b(np.zeros(7),np.ones(7)) =",b(np.zeros(7),np.ones(7)))
+cf_id = cs.Function.load('csfn_inverse_dynamics.casadi')
+print("\n[Inverse Dynamics]")
+print("cf_id =",cf_id)
+print("cf_id(0,0,0) =",cf_id(zeoro7,zeoro7,zeoro7))
