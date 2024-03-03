@@ -16,6 +16,8 @@ int main(){
     //Define Model class and Data class with symbolic variable.
     typedef pinocchio::ModelTpl<casadi::SX> ADModel;
     ADModel ad_model = model.cast<casadi::SX>();
+    ad_model.gravity.linear() << 0.0,0.0,0.0;
+    std::cout<<ad_model.gravity.linear()<<std::endl;
     ADModel::Data ad_data(ad_model);
     
     // Define casadi symbolic variables for q, v, a.
@@ -31,7 +33,6 @@ int main(){
     pinocchio::casadi::copy(cs_v, v_ad);
     pinocchio::casadi::copy(cs_a, a_ad);
     pinocchio::casadi::copy(cs_tau, tau_ad);
-
 
     // Generate casadi function object file of forward dynamics.
     casadi::SX cs_aba_local(ad_model.nv,1);
