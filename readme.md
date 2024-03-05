@@ -14,4 +14,4 @@
 * [7章 NLPソルバーの比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_chain_of_masses.ipynb)
 * [8章 MHE](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_MHE.ipynb)
 * [8章 MHExMPC](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_MPC_and_MHE.ipynb)
-* [B章 acados](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_acados_tutorial.ipynb)
+<!-- * [B章 acados](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_acados_tutorial.ipynb) -->
