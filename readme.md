@@ -13,7 +13,7 @@
   * [6章 直接的単一シューティング法と直接的多重シューティング法の比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_single_shooting.ipynb)
   * [6章 直接的コロケーション法と直接的多重シューティング法の比較（計算速度）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_collocation_cartpole.ipynb)
   * [6章 直接的コロケーション法と直接的多重シューティング法の比較（硬い状態方程式モデル）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_collocation_stiff.ipynb)
-  * [6章 ウォームスタート](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_initial_guess.ipynb)
+  * [6章 ウォームスタート](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_warm_start_experiment_solution_time.ipynb)
   * [6章 反復回数の制限](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_limit_iteration.ipynb)
 * 7章 CasADiにおける最適化ソルバーの比較
   * [7章 マス・バネ・ダンバモデルを例に用いたIPOPTとOSQPの比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_QP_example.ipynb)
