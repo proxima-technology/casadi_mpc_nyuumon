@@ -1,6 +1,8 @@
 # PythonとCasADiで学ぶモデル予測制御
 このページは書籍「PythonとCasADiで学ぶモデル予測制御」に関する情報を公開するページです。
 
+[![](./デザイン/casadi_mpc_表紙.jpg)](https://amzn.asia/d/8TwVTO3)
+
 ## Google Colabへのリンク
 
 * 3章 CasADi入門
