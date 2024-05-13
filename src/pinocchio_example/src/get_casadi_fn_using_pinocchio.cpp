@@ -13,10 +13,10 @@ int main(){
     pinocchio::Model model;
     pinocchio::urdf::buildModel(urdf_filename, model);    
 
-    //Define Model class and Data class with symbolic variable.
+    // Define Model class and Data class with symbolic variable.
     typedef pinocchio::ModelTpl<casadi::SX> ADModel;
     ADModel ad_model = model.cast<casadi::SX>();
-    ad_model.gravity.linear() << 0.0,0.0,0.0;
+    // ad_model.gravity.linear() << 0.0,0.0,0.0;
     std::cout<<ad_model.gravity.linear()<<std::endl;
     ADModel::Data ad_data(ad_model);
     
