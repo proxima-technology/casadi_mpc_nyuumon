@@ -1,7 +1,7 @@
-# PythonとCasADiで学ぶモデル予測制御
-このページは書籍「PythonとCasADiで学ぶモデル予測制御」に関する情報を公開するページです。
+# 書籍『PythonとCasADiで学ぶモデル予測制御』サポートサイト
+このページは書籍『PythonとCasADiで学ぶモデル予測制御』に関する情報を公開するページです。
 
-[![](./デザイン/casadi_mpc_表紙.jpg)](https://amzn.asia/d/8TwVTO3)
+[<img src="./デザイン/casadi_mpc_表紙.jpg" width="50%">](https://amzn.asia/d/8TwVTO3)
 
 ## Google Colabへのリンク
 
@@ -25,7 +25,7 @@
   * [8章 リチウムイオン電池に対するMHE](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_MHE.ipynb)
   * [8章 CSTRに対するMPCxMHE](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_MPC_and_MHE.ipynb)
 * B章 CasADi中級
-  * [B章 acados](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_acados_getting_started.ipynb)
+  * [B章 acados（* Google Colabでの動作は行えません。）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_acados_getting_started.ipynb)
   * [B章 codegen for func](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_codegen_function_object.ipynb)
   * [B章 codegen for solver](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_codegen_solver_interface.ipynb)
   * [B章 discrete](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_discrete_actuator.ipynb)
