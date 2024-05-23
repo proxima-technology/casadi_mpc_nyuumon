@@ -30,3 +30,13 @@
   * [B章 codegen for solver](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_codegen_solver_interface.ipynb)
   * [B章 discrete](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_discrete_actuator.ipynb)
 
+## リンク集
+
+### 著者発信の情報
+
+|ソース  |リンク  |補足|
+|---|---|---|
+|弊社ホームページ|[https://proxima-ai-tech.com/](https://proxima-ai-tech.com/)|xxx|
+|弊社Zenn|[https://zenn.dev/takuya_fukatsu](https://zenn.dev/takuya_fukatsu)|xxx|
+|弊社X|[@Proxima_ai_tech](https://x.com/Proxima_ai_tech?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)|xxx|
+|弊社CEO X|[@takuya_fukatsu](https://x.com/takuya_fukatsu)|xxx|
