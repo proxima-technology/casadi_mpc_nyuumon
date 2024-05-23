@@ -18,12 +18,12 @@
   * [6章 ウォームスタート](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_warm_start_experiment_solution_time.ipynb)
   * [6章 反復回数の制限](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_limit_iteration.ipynb)
 * 7章 CasADiにおける最適化ソルバーの比較
-  * [7章 マス・バネ・ダンバモデルを例に用いたIPOPTとOSQPの比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_QP_example.ipynb)
+  * [7章 マス・バネ・ダンバモデルを例に用いたIPOPTとOSQPの比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_mass_spring_damper.ipynb)
   * [7章 2次元ドローンを例に用いたQPソルバーの比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_2d_quadrotor.ipynb)
   * [7章 ゴム紐モデルを例に用いたNLPソルバーの比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter7_chain_of_masses.ipynb)
 * 8章 状態推定問題と移動ホライズン推定
-  * [8章 リチウムイオン電池に対するMHE](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_MHE.ipynb)
-  * [8章 CSTRに対するMPCxMHE](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_MPC_and_MHE.ipynb)
+  * [8章 リチウムイオン電池に対するMHE](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_LIB.ipynb)
+  * [8章 CSTRに対するMPCxMHE](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter8_CSTR.ipynb)
 * B章 CasADi中級
   * [B章 acados（* Google Colabでの動作は行えません。）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_acados_getting_started.ipynb)
   * [B章 codegen for func](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapterB_codegen_function_object.ipynb)
