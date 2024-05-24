@@ -43,6 +43,9 @@
 
 ## リンク集
 
+### Amazon
+[単行本](https://www.amazon.co.jp/Python%E3%81%A8CasADi%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%A2%E3%83%87%E3%83%AB%E4%BA%88%E6%B8%AC%E5%88%B6%E5%BE%A1-KS%E7%90%86%E5%B7%A5%E5%AD%A6%E5%B0%82%E9%96%80%E6%9B%B8-%E6%B7%B1%E6%B4%A5-%E5%8D%93%E5%BC%A5/dp/4065356113)
+
 ### 著者発信の情報
 
 |ソース  |リンク  |補足|
