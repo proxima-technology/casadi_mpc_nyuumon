@@ -32,19 +32,20 @@
  
 ## 本書で作成する制御のアニメーション例
 
-* 倒立振子
+* **倒立振子**
 <img src="./src/images/chap5_cart_pole.gif" width="50%">
 
-* 2次元ドローン
+* **2次元ドローン**
 <img src="./src/images/chap7_2d_quadrotor.gif" width="50%">
 
-* ゴム紐
+* **ゴム紐**
 <img src="./src/images/chap7_chain_of_mass.gif" width="50%">
 
 ## リンク集
 
 ### Amazon
 [単行本](https://www.amazon.co.jp/Python%E3%81%A8CasADi%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%A2%E3%83%87%E3%83%AB%E4%BA%88%E6%B8%AC%E5%88%B6%E5%BE%A1-KS%E7%90%86%E5%B7%A5%E5%AD%A6%E5%B0%82%E9%96%80%E6%9B%B8-%E6%B7%B1%E6%B4%A5-%E5%8D%93%E5%BC%A5/dp/4065356113)
+[サポートサイト](https://github.com/proxima-technology/casadi_mpc_nyuumon)
 
 ### 著者発信の情報
 
