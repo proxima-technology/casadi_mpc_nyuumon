@@ -1,16 +1,10 @@
 # 書籍『PythonとCasADiで学ぶモデル予測制御』サポートサイト
 このページは書籍『PythonとCasADiで学ぶモデル予測制御』に関する情報を公開するページです。
 
-[<img src="./デザイン/casadi_mpc_表紙.jpg" width="50%">](https://amzn.asia/d/8TwVTO3)
-
 ### 書籍の購入はこちら:
 [Amazonで購入](https://amzn.asia/d/8TwVTO3)
 
-## 目次
-- [Google Colabへのリンク](#google-colabへのリンク)
-- [制御のアニメーション例](#制御のアニメーション例)
-- [リンク集](#リンク集)
-- [著者発信の情報](#著者発信の情報)
+[<img src="./デザイン/casadi_mpc_表紙.jpg" width="50%">](https://amzn.asia/d/8TwVTO3)
 
 ## Google Colabへのリンク
 ここでは、本書の各章に対応するGoogle Colabノートブックへのリンクを提供します。以下のリンクから直接実行可能です。
@@ -50,13 +44,13 @@
 ## 制御のアニメーション例
 本書では、以下のような制御のアニメーションを作成することができます。
 
-* **倒立振子**
+### 倒立振子
 <img src="./src/images/chap5_cart_pole.gif" width="50%">
 
-* **2次元ドローン**
+### 2次元ドローン
 <img src="./src/images/chap7_2d_quadrotor.gif" width="50%">
 
-* **ゴム紐**
+### ゴム紐
 <img src="./src/images/chap7_chain_of_mass.gif" width="50%">
 
 ## リンク集
