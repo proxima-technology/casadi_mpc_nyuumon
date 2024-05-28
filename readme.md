@@ -64,6 +64,8 @@
 [版元ドットコム](https://www.hanmoto.com/bd/isbn/9784065356111)
 
 ### 参考資料
+[CasADi公式](https://web.casadi.org/)
+
 [サポートサイト](https://github.com/proxima-technology/casadi_mpc_nyuumon)
 
 ### 著者発信の情報
