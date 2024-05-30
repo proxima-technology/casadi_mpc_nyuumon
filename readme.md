@@ -1,7 +1,7 @@
 # 書籍『PythonとCasADiで学ぶモデル予測制御』サポートサイト
 このページは書籍『PythonとCasADiで学ぶモデル予測制御』に関する情報を公開するページです。
 
-[<img src="./デザイン/casadi_mpc_表紙.jpg" width="50%">](https://amzn.asia/d/8TwVTO3)
+[<img src="./design/casadi_mpc_cover.jpg" width="50%">](https://amzn.asia/d/8TwVTO3)
 
 ## Google Colabへのリンク
 
