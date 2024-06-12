@@ -1,7 +1,7 @@
 \documentclass[a4paper]{jarticle}
 \usepackage{amsmath,amssymb}
 
-\title{最適制御問題に固有の構造を利用した QP 問題の最適化計算（付録A.4の補足稿）}
+\title{最適制御問題に固有の構造を利用した QP 問題の最適化計算（本書\cite{fukatsu2024python}付録A.4の補足稿）}
 %\author{}
 %\date{}
 \begin{document}
@@ -77,7 +77,10 @@ O & Z^\ell & \Pi^\ell
 \label{eq:ipm_qp}
 \end{align}
 
+
+\clearpage
 \section{最適制御における不等式制約付き QP 問題の KKT 行列線形方程式計算の変換}
+\label{sec:handling_inequality}
 
 不等式制約がある線形最適制御問題はQP問題として表現できます（本書\cite{fukatsu2024python}6.3.2項）。
 これを内点法で解く際に必要なKKT行列の線形方程式(\ref{eq:ipm_qp})を解く部分は、LQ制御問題に変換することが可能\cite{rao1998application}であり、LQ制御の効率的解法を使用して高速に解くことができます（後に本補足稿\ref{sec:riccati_recursion}節で説明します）。
@@ -288,8 +291,201 @@ R_{k}' &=R_k +(G_k^u)^TZ_k^{-1}\Pi_kG_k^u
 以上により、最適制御において不等式制約条件を含むQP問題を解く際の内点法の中のKKT行列の線形方程式を解いて更新方向を計算する部分は、
 有限ホライズンの離散時間LQ制御問題の解を計算することに変換することができることを確認しました。
 
+
+\clearpage
 \section{リッカチ再帰式を利用したKKT行列の線形方程式の解法}
 \label{sec:riccati_recursion}
+
+KKT行列の線形方程式を解く問題は有限ホライズンの離散時間LQ制御問題に変換することができる（本補足稿\ref{sec:handling_inequality}節）ため、この問題は線形制御の効率的解法であるリッカチ再帰式を利用して解くことができます\cite{rao1998application,boyd2004convex,frison2015algorithms}。
+以下では、このことを数式を追いながら確認します。
+
+本節では、次の有限ホライズンの離散時間LQ制御問題、すなわち、評価関数が二次形式で制約条件が初期状態と線形状態方程式モデルのみであるQP問題を考えます。
+\begin{equation*}
+\begin{aligned}
+& \underset{ \mathbf{X},\mathbf{U}}{\text{min}} && 
+\mathbf{x}_K^TQ_K\mathbf{x}_K + 2 q_K^T\mathbf{x}_K
++
+\sum_{k=0}^{K-1}
+\begin{bmatrix} \mathbf{x}_k \\ \mathbf{u}_k \\ 1\end{bmatrix}^T
+\begin{bmatrix} Q_k & S_k & q_k \\ S_k^T & R_k & r_k \\ q_k^T & r_k^T & 0\end{bmatrix}
+\begin{bmatrix} \mathbf{x}_k \\ \mathbf{u}_k \\ 1\end{bmatrix} \\
+&\text{subject to} && \left \{
+\begin{aligned}
+    & \mathbf{x}_0 = \bar{\mathbf{x}}_{init}\\
+    & \mathbf{x}_{k+1} = A_k \mathbf{x}_k + B_k \mathbf{u}_k + b_k\\
+\end{aligned}
+\right .
+\end{aligned}
+\end{equation*}
+このQP問題の最適性の必要条件は、対角に帯状にブロック行列が並んだKKT行列の線形方程式となります。
+\begin{align}
+\begin{bmatrix}
+ \ddots & &  &  &  &  \\
+& &  -I &  &  &  \\
+& -I &  Q_{K-1} & S_{K-1} & A_{K-1}^T &  \\
+&  &  S_{K-1}^T & R_{K-1} & B_{K-1}^T &  \\
+&  & A_{K-1} & B_{K-1} &    & -I  \\
+&  &   &   & -I & Q_K  \\
+\end{bmatrix}
+\begin{bmatrix}
+\vdots\\
+\lambda_{K-2}\\
+\mathbf{x}_{K-1}\\
+\mathbf{u}_{K-1}\\
+\lambda_{K-1}\\
+\mathbf{x}_{K}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\vdots\\
+-b_{K-1}\\
+-q_{K-1}\\
+-r_{K-1}\\
+-b_{K-1}\\
+-q_K\\
+\end{bmatrix}
+\label{eq:kkt_system_before_riccati_recursion}
+\end{align}
+$Q_K$を乗じた下から2番目の行に一番下の行を加えると、次式が得られます。
+\begin{align*}
+\begin{bmatrix}
+\ddots &   &  & &\\
+&  & -I & &\\
+& -I &  Q_{K-1} & S_{K-1} & A_{K-1}^T \\
+&  &  S_{K-1}^T & R_{K-1} & B_{K-1}^T  \\
+&   & Q_KA_{K-1} & Q_KB_{K-1} &  -I \\
+\end{bmatrix}
+\begin{bmatrix}
+\vdots\\
+\lambda_{K-2}\\
+\mathbf{x}_{K-1}\\
+\mathbf{u}_{K-1}\\
+\lambda_{K-1}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\vdots\\
+-b_{K-1}\\
+-q_{K-1}\\
+-r_{K-1}\\
+-(Q_Kb_{K-1}+q_{K})
+\end{bmatrix}
+\end{align*}
+下から3番目の行に$A_{K-1}^T$を乗じた一番下の行を加え、
+下から2番目の行に$B_{K-1}^T$を乗じた一番下の行を加えると、
+次式が得られます。
+\begin{align*}
+&\begin{bmatrix}
+ \ddots& &  & \\
+ & & -I & \\
+ &-I &  Q_{K-1} +A_{K-1}^TQ_{K}A_{K-1} & S_{K-1} + A_{K-1}^TQ_{K}B_{K-1} \\
+ &  &  S_{K-1}^T + B_{K-1}^TQ_{K}A_{K-1} & R_{K-1}  + B_{K-1}^TQ_{K}B_{K-1}   \\
+\end{bmatrix}
+\begin{bmatrix}
+\vdots\\
+\lambda_{K-2}\\
+\mathbf{x}_{K-1}\\
+\mathbf{u}_{K-1}
+\end{bmatrix}
+\\
+&=
+\begin{bmatrix}
+\vdots\\
+-b_{K-1}\\
+-(A^T_{K-1}(Q_Kb_{K-1}+q_{K}) + q_{K-1})\\
+-(B^T_{K-1}(Q_Kb_{K-1}+q_{K}) + r_{K-1})\\
+\end{bmatrix}
+\end{align*}
+下から2番目の行に$(S_{K-1} + A_{K-1}^TQ_{K}B_{K-1})(R_{K-1}  + B_{K-1}^TQ_{K}B_{K-1})^{-1}$を乗じた一番下の行を加えると、
+次式が得られます。
+\begin{align}
+\begin{bmatrix}
+\ddots & &\\
+&  &  -I\\
+& -I &  P_{K-1}
+\end{bmatrix}
+\begin{bmatrix}
+\vdots\\
+\lambda_{K-2}\\
+\mathbf{x}_{K-1}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\vdots\\
+-b_{K-1}\\
+-p_{K-1}
+\end{bmatrix}
+\label{eq:kkt_system_after_riccati_recursion}
+\end{align}
+ここで、$P_K$と$p_k$は次式
+\begin{align}
+P_{k} =& Q_{k} +A_{k}^TP_{k+1}A_{k} 
+\notag
+\\
+&- (S_{k} + A_{k}^TP_{k+1}B_{k})(R_{k}  + B_{k}^TP_{k+1}B_{k})^{-1}(S_{k}^T + B_{k}^TP_{k+1}A_{k})
+\label{eq:riccati_recursion_matrix}
+\\
+p_{k} =& q_{k} +A^T_{k}(P_{k+1}b_{k}+p_{k+1})
+\notag
+\\
+&- (S_{k} + A_{k}^TP_{k+1}B_{k})(R_{k}  + B_{k}^TP_{k+1}B_{k})^{-1}(B^T_{k}(P_{k+1}b_{k}+p_{k+1}) + r_{k})
+\label{eq:riccati_recursion_vector}
+\end{align}
+に$k=K-1$、$P_K=Q_K$、$p_K=q_K$を代入して計算した値です。
+なお、この式はリッカチ再帰式と呼ばれます。
+
+
+式(\ref{eq:kkt_system_before_riccati_recursion})から式(\ref{eq:kkt_system_after_riccati_recursion})を得る操作は$k=0$まで再帰的に繰り返し適用することが可能です。
+その際、$P_k$と$p_k$は、式(\ref{eq:riccati_recursion_matrix})と式(\ref{eq:riccati_recursion_vector})により得ることができます。
+また、$\mathbf{u}_{k}$と$\lambda_{k}$は、次式で得ることができます。
+\begin{align}
+\mathbf{u}_{k}
+=&
+-(R_{k} + B_{k}^TP_{k+1}B_{k} )^{-1}(S_{k}^T + B_k^TP_{k+1}A_{k})\mathbf{x}_{k}
+\notag
+\\
+&
+-(B^T_{k}(P_{k+1}b_{k}+p_{k+1}) + r_{k})
+\label{eq:riccati_recursion_u}
+\\
+\lambda_{k}
+=&
+P_{k+1}\mathbf{x}_{k+1} + p_{k+1}
+\label{eq:riccati_recursion_lambda}
+\end{align}
+$k=0$まで再帰的に繰り返し適用した後、最終的には次式が得られます。
+\begin{align*}
+\begin{bmatrix}
+&  -I\\
+-I &  P_{0}
+\end{bmatrix}
+\begin{bmatrix}
+\lambda_{-1}\\
+\mathbf{x}_{0}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+-\bar{\mathbf{x}}_{init}\\
+-p_{0}
+\end{bmatrix}
+\end{align*}
+したがって、式(\ref{eq:kkt_system_before_riccati_recursion})のKKT行列の線形方程式は、大まかには以下の流れで解くことができます。
+\begin{itemize}
+\item $(P_k,p_k)$を、式(\ref{eq:riccati_recursion_matrix})と式(\ref{eq:riccati_recursion_vector})を用いて$k=K,K-1,\cdots,0$の順番に計算する。
+\item $(\mathbf{u}_{k},\mathbf{x}_{k+1},\lambda_{k+1})$を、状態方程式モデルと式(\ref{eq:riccati_recursion_u})と式(\ref{eq:riccati_recursion_lambda})を用いて$k=0,1,\cdots,K-1$の順番に計算する。
+\end{itemize}
+
+リッカチ再帰式を用いてKKT行列の線形方程式を解く方法の主要な計算コストは、式(\ref{eq:riccati_recursion_matrix})-式(\ref{eq:riccati_recursion_u})の中の逆行列計算と行列同士の積算であり、状態次元数$n_x$あるいは制御次元数$n_u$に関して3乗のオーダーです。
+この計算をホライズン長$K$の回数分だけ再帰的に実行するため、全体としては$K$に関しては線形オーダーの計算量です。
+一方で、式(\ref{eq:kkt_system_before_riccati_recursion})のKKT行列の線形方程式を汎用的なコレスキー分解を用いて解く場合には、
+KKT行列のサイズが$K(2n_x+n_u)\times(2n_x+n_u)$であるため計算量は$(K(2n_x+n_u))^3$のオーダーであり、つまり、$K$に関して3乗のオーダーです。
+そのため、最適制御問題に固有の構造を利用したリッカチ再帰式を用いてKKT行列の線形方程式を解く方が効率的に計算を行うことができます。
+
+本節では、リカッチ再帰式を用いてKKT行列の線形方程式を解くためのアイデアの概要を紹介しました。
+より実践的なアルゴリズムの実装方法やより詳細な計算量の解析については、\cite{frison2015algorithms}を参照してください。
+
+
+\clearpage
 \section{partial condensing（状態変数の部分的な消去）}
 
 \bibliographystyle{unsrt}
