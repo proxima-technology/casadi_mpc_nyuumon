@@ -1,7 +1,7 @@
 \documentclass[a4paper]{jarticle}
 \usepackage{amsmath,amssymb}
 
-\title{最適制御問題に固有の構造を利用した QP 問題の最適化計算（本書\cite{fukatsu2024python}付録A.4の補足稿）}
+\title{最適制御問題の固有構造を利用した QP 問題の最適化計算（本書\cite{fukatsu2024python}付録A.4補足稿）}
 %\author{}
 %\date{}
 \begin{document}
@@ -487,6 +487,264 @@ KKT行列のサイズが$K(2n_x+n_u)\times(2n_x+n_u)$であるため計算量は
 
 \clearpage
 \section{partial condensing（状態変数の部分的な消去）}
+
+本書\cite{fukatsu2024python} 6.3.2項では、最適制御におけるQP問題の状態変数を消去しない場合と全て消去する場合を考えました。
+状態変数の全てではなく一部を変数消去するという中間的なアプローチも存在し、condensingを部分的に行うという意味で\textbf{partial condensing}と呼ばれます\cite{axehill2015controlling,frison2015algorithms}。
+最適制御におけるQP問題を解くための計算コストはホライズン$K$・状態次元数$n_x$・制御次元数$n_u$により決まる（本補足稿\ref{sec:riccati_recursion}節参照）ため、
+partial condensingを用いて状態変数を適当な割合で部分的に消去することによりQP問題を解くための計算コストを減らすことができます。
+partial condensingは実践的MPCツールであるacados \cite{verschueren2021acados}（本書\cite{fukatsu2024python}付録Bで紹介します）においても利用可能なオプションとして用意されていて、より高速なMPCを実装する際には重要な考え方の一つです。
+
+以下では、partial condensingの具体例として、元々の問題のホライズンが3の倍数であり$K=3\tilde{K}$とした場合に状態$\mathbf{x}_{k+1},\mathbf{x}_{k+2}$を変数消去する例を説明します。
+$\mathbf{x}_{k+1},\mathbf{x}_{k+2}$は、次のように書くことができます。
+\begin{align*}
+  \mathbf{x}_{k+1} &= A_k\mathbf{x}_k + B_k\mathbf{u}_k + b_k
+  \\
+  \mathbf{x}_{k+2} &= A_{k+1}\mathbf{x}_{k+1} + B_{k+1}\mathbf{u}_{k+1} + b_{k+1}
+  \\
+  %&= A_{k+1}(A_k\mathbf{x}_k + B_k\mathbf{u}_k + b_k) + B_{k+1}\mathbf{u}_{k+1} + b_{k+1}
+  %\\
+  &= A_{k+1}A_k\mathbf{x}_k + 
+  \begin{bmatrix}
+  A_{k+1}B_k & B_{k+1}
+  \end{bmatrix}
+  \begin{bmatrix}
+  \mathbf{u}_k \\
+  \mathbf{u}_{k+1} \\
+  \end{bmatrix}  
+  + \left( A_{k+1}b_k + b_{k+1} \right)
+  \\
+  \mathbf{x}_{k+3} &= A_{k+2}\mathbf{x}_{k+2} + B_{k+2}\mathbf{u}_{k+2} + b_{k+2}  
+  \\
+  &= 
+  \tilde{A}_k \mathbf{x}_k + 
+  \tilde{B}_k
+  \begin{bmatrix}
+  \mathbf{u}_k \\
+  \mathbf{u}_{k+1} \\
+  \mathbf{u}_{k+2} \\
+  \end{bmatrix}
+  +
+  \tilde{b}_k
+\end{align*}
+ここで、$\tilde{A}_k,\tilde{B}_k,\tilde{b}_k$は、次のように書くことができます。
+\begin{align*}
+  \tilde{A}_k
+  &= 
+  A_{k+2}A_{k+1}A_k
+  \\
+  \tilde{B}_k
+  &= 
+  \begin{bmatrix}
+  A_{k+2}A_{k+1}B_k & A_{k+2}B_{k+1} & B_{k+2}\\
+  \end{bmatrix}
+  \\
+  \tilde{b}_k
+  &= 
+  A_{k+2}(A_{k+1}(A_k + b_k) + b_{k+1}) + b_{k+2}
+\end{align*}
+新たに変数$\tilde{\mathbf{x}}_k={\mathbf{x}}_{3k}$、$\tilde{\mathbf{u}}_k=  \begin{bmatrix}\mathbf{u}_k \\\mathbf{u}_{k+1} \\\mathbf{u}_{k+2} \end{bmatrix}$と定義すると、次のように書くことができます。
+\begin{align}
+  \tilde{\mathbf{x}}_{k+1}
+  &= 
+  \tilde{A}_k \tilde{\mathbf{x}}_k + 
+  \tilde{B}_k \tilde{\mathbf{u}}_k
+  +
+  \tilde{b}_k
+  \label{eq:partial_dense_state_eq_3}
+\end{align}
+これは、$\tilde{\mathbf{x}}_k$と$\tilde{\mathbf{u}}_k$を状態変数と制御入力とするシステムの状態方程式モデルとして見ることができます。
+
+新たに定義した変数について、次のように書くことができます。
+\begin{align*}
+  \begin{bmatrix}
+  \mathbf{x}_{k}\\
+  \mathbf{u}_{k}\\
+  1
+  \end{bmatrix}
+  &=
+  \begin{bmatrix}
+  I & O & O & O & 0\\
+  O & I & O & O & 0 \\
+  O & O & O & O & 1 
+  \end{bmatrix}    
+  \begin{bmatrix}
+  \mathbf{x}_{k}\\
+  \mathbf{u}_{k}\\
+  \mathbf{u}_{k+1}\\
+  \mathbf{u}_{k+2}\\
+  1
+  \end{bmatrix}
+  =
+  T_{k,0}
+  \begin{bmatrix}
+  \tilde{\mathbf{x}}_{k}\\
+  \tilde{\mathbf{u}}_{k}\\
+  1
+  \end{bmatrix}
+  \\
+  \begin{bmatrix}
+  \mathbf{x}_{k+1}\\
+  \mathbf{u}_{k+1}\\
+  1
+  \end{bmatrix}
+  &=
+  \begin{bmatrix}
+  A_k & B_k & O & O & b_k\\
+  O & O & I & O & 0 \\
+  O & O & O & O & 1 
+  \end{bmatrix}    
+  \begin{bmatrix}
+  \mathbf{x}_{k}\\
+  \mathbf{u}_{k}\\
+  \mathbf{u}_{k+1}\\
+  \mathbf{u}_{k+2}\\
+  1
+  \end{bmatrix}
+  =
+  T_{k,1}
+  \begin{bmatrix}
+  \tilde{\mathbf{x}}_{k}\\
+  \tilde{\mathbf{u}}_{k}\\
+  1
+  \end{bmatrix}
+  \\
+  \begin{bmatrix}
+  \mathbf{x}_{k+2}\\
+  \mathbf{u}_{k+2}\\
+  1
+  \end{bmatrix}
+  &=
+  \begin{bmatrix}
+  A_{k+2}A_k & A_{k+1}B_{k} & B_{k+1} & O & A_{k+1}b_k + b_{k+1}\\
+  O & O & O & I & 0 \\
+  O & O & O & O & 1 
+  \end{bmatrix}    
+  \begin{bmatrix}
+  \mathbf{x}_{k}\\
+  \mathbf{u}_{k}\\
+  \mathbf{u}_{k+1}\\
+  \mathbf{u}_{k+2}\\
+  1
+  \end{bmatrix}  
+  \\
+  &=
+  T_{k,2}
+  \begin{bmatrix}
+  \tilde{\mathbf{x}}_{k}\\
+  \tilde{\mathbf{u}}_{k}\\
+  1
+  \end{bmatrix}
+\end{align*}
+ステージコストの係数行列を次式で定義します。
+\begin{align*}
+ \begin{bmatrix} \tilde{Q}_{k+i} & \tilde{S}_{k+i} & \tilde{q}_{k+i} \\ \tilde{S}_{k+i}^T & \tilde{R}_{k+i} & \tilde{r}_{k+i} \\ \tilde{q}_{k+i}^T & \tilde{r}_{k+i}^T & 0\end{bmatrix}
+ = 
+\sum_{i=0}^{2}
+ T_{k,i}^T
+ \begin{bmatrix} Q_{k+i} & S_{k+i} & q_{k+i} \\ S_{k+i}^T & R_{k+i} & r_{k+i} \\ q_{k+i}^T & r_{k+i}^T & 0\end{bmatrix}
+ T_{k,i}
+\end{align*}
+式(\ref{eq:ocp_qp})の元々の問題の評価関数は、次のように書き変えることができます。
+\begin{align}
+ &\mathbf{x}_K^TQ_k\mathbf{x}_K+2q_K^T\mathbf{x}_{K}+
+ \sum_{k=0}^{K-1}
+\begin{bmatrix} \mathbf{x}_k \\ \mathbf{u}_k \\ 1\end{bmatrix}^T
+\begin{bmatrix} Q_k & S_k & q_k \\ S_k^T & R_k & r_k \\ q_k^T & r_k^T & 0\end{bmatrix}
+\begin{bmatrix} \mathbf{x}_k \\ \mathbf{u}_k \\ 1\end{bmatrix}
+\notag
+\\
+ &=\mathbf{x}_{\tilde{K}}^TQ_K\mathbf{x}_{\tilde{K}}
+ +2q_K^T\tilde{\mathbf{x}}_{\tilde{K}}
+ +
+ \sum_{k=0}^{\tilde{K}-1}
+ \begin{bmatrix} \tilde{\mathbf{x}}_{k} \\ \tilde{\mathbf{u}}_{k} \\ 1\end{bmatrix}^T
+ \begin{bmatrix} \tilde{Q}_{k} & \tilde{S}_{k} & \tilde{q}_{k} \\ \tilde{S}_{k}^T & \tilde{R}_{k} & \tilde{r}_{k} \\ \tilde{q}_{k}^T & \tilde{r}_{k}^T & 0\end{bmatrix}
+ \begin{bmatrix} \tilde{\mathbf{x}}_{k} \\ \tilde{\mathbf{u}}_{k} \\ 1\end{bmatrix}
+  \label{eq:partial_dense_obj_3}
+\end{align}
+これは、$\tilde{\mathbf{x}}_k$と$\tilde{\mathbf{u}}_k$を状態変数と制御入力とするシステムの評価関数として見ることができます。
+
+同様にして、制約条件も書き換えることができます。
+$i=\{0,1,2\}$に対して、式(\ref{eq:ocp_qp})の元々の問題の不等式
+\begin{align*}
+    G^{x}_{k+i} \mathbf{x}_{k+i} + G^{u}_{k+i}\mathbf{u}_{k+i} \le h_{k+i}
+\end{align*}
+は次のように書き換えることができます。
+\begin{align*}
+\begin{bmatrix} G^{x}_{k+i} & G^{u}_{k+i} & -h_{k+i} \end{bmatrix}
+\begin{bmatrix} \mathbf{x}_{k+i} \\ \mathbf{u}_{k+i} \\ 1\end{bmatrix}
+=
+\begin{bmatrix} G^{x}_{k+i} & G^{u}_{k+i} & -h_{k+i} \end{bmatrix}
+T_{k.i}
+\begin{bmatrix} \tilde{\mathbf{x}}_{k} \\ \tilde{\mathbf{u}}_{k} \\ 1\end{bmatrix}
+\le
+0
+\end{align*}
+係数$\tilde{G}^{x}_{k},\tilde{G}^{u}_{k},\tilde{h}_{k}$を次式で定義します。
+\begin{align*}
+\begin{bmatrix} \tilde{G}^{x}_{k} & \tilde{G}^{u}_{k} & -\tilde{h}_{k} \end{bmatrix}
+=
+\begin{bmatrix}
+\begin{bmatrix}
+G^{x}_{k} & G^{u}_{k} & -h_{k}
+\end{bmatrix}
+T_{k,0}\\
+\begin{bmatrix}
+G^{x}_{k+1} & G^{u}_{k+1} & -h_{k+1}
+\end{bmatrix}
+T_{k,1}\\
+\begin{bmatrix}
+G^{x}_{k+2} & G^{u}_{k+2} & -h_{k+2}
+\end{bmatrix}
+T_{k,2}
+\end{bmatrix}
+\end{align*}
+$k=0,\cdots,\tilde{K}-1$に対して、
+\begin{align}
+\begin{bmatrix} \tilde{G}^{x}_{k} & \tilde{G}^{u}_{k} & -\tilde{h}_{k} \end{bmatrix}
+\begin{bmatrix} \tilde{\mathbf{x}}_{k} \\ \tilde{\mathbf{u}}_{k} \\ 1\end{bmatrix}
+\le 0
+  \label{eq:partial_dense_constraint_3}
+\end{align}
+と書くと、$\tilde{\mathbf{x}}_k$と$\tilde{\mathbf{u}}_k$を状態変数と制御入力とするシステムの制約条件として見ることができます。
+
+式(\ref{eq:partial_dense_state_eq_3})-(\ref{eq:partial_dense_constraint_3})より、partial condensingにより部分的に変数消去をして再定式化をした最適制御問題は、次のように書くことができます。
+\begin{equation}
+\begin{aligned}
+& \underset{ \tilde{\mathbf{x}}_{0},\cdots,\tilde{\mathbf{x}}_{\tilde{K}}, \tilde{\mathbf{u}}_{0},\cdots,\tilde{\mathbf{u}}_{\tilde{K}-1}}{\text{min}} && 
+\tilde{\mathbf{x}}_{\tilde{K}}^TQ_{K}\tilde{\mathbf{x}}_{\tilde{K}}+
+2q_K^T\mathbf{x}_{K}+
+\sum_{k=0}^{\tilde{K}-1}
+\begin{bmatrix} \tilde{\mathbf{x}}_k \\ \tilde{\mathbf{u}}_k \\ 1\end{bmatrix}^T
+\begin{bmatrix} \tilde{Q}_k & \tilde{S}_k & \tilde{q}_k \\ \tilde{S}_k^T & \tilde{R}_k & \tilde{r}_k \\ \tilde{q}_k^T & \tilde{r}_k^T & 0\end{bmatrix}
+\begin{bmatrix} \tilde{\mathbf{x}}_k \\ \tilde{\mathbf{u}}_k \\ 1\end{bmatrix} \\
+&\text{subject to} && \left \{
+\begin{aligned}
+    & \tilde{\mathbf{x}}_0 = \bar{\mathbf{x}}_{init}\\
+    & \tilde{\mathbf{x}}_{k+1} = \tilde{A}_k \tilde{\mathbf{x}}_k + \tilde{B}_k \tilde{\mathbf{u}}_k + \tilde{b}_k\\
+    & \tilde{G}^{x}_k \tilde{\mathbf{x}}_k + \tilde{G}^{u}_k\tilde{\mathbf{u}}_k \le \tilde{h}_k\\
+    & G^{x}_K\tilde{\mathbf{x}}_{\tilde{K}}\le h_K
+\end{aligned}
+\right .
+\end{aligned}
+\label{eq:ocp_qp_partial_cond}
+\end{equation}
+再定式化した問題における状態変数の次元は$\tilde{n}_x=n_x$、制御入力の次元は$\tilde{n}_u=3n_u$、ホライズンは$\tilde{K}=K/3$です。
+つまり、partial condensingでは、ホライズンを$1/3$倍、制御入力の次元を3倍とした等価な最適制御問題を再定式化します。
+この具体例を一般化して、partial condensingにより、ホライズンを$1/m$倍、制御入力の次元を$m$倍とした等価な最適制御問題を再定式化することができます\cite{axehill2015controlling,frison2015algorithms}。
+ホライズン長を$\tilde{K}=1$とした場合は全ての状態変数を消去した場合、$\tilde{K}=K$とした場合は状態変数を消去しない場合として解釈することができます。
+また、さらなる一般化として、消去する状態変数を等間隔に選ばないような拡張を考えることもできます。
+以上のことから、partial condensingは、ホライズンを短くする代わりに制御入力の次元を増やして最適制御問題を再定式化する方法として解釈することができます。
+
+
+本補足稿\ref{sec:riccati_recursion}節で述べたように、QP最適化における主要な計算コストであるKKT行列の線型方程式を解く計算量はホライズン$K$・状態次元数$n_x$・制御次元数$n_u$により決まるため、partial condensingによってこれらの値を変更してからQPソルバーを適用することにより、より少ない計算コストで最適化を行うことができます。
+
+
+最適化ソルバーを適用する前の前処理としてのpartial condensingの計算コストと比較して、最適化ソルバーを適用して低減化される計算コストの方が大きいため、partial condensing自体の計算コストを含めてトータルで評価した上でも計算を効率化することができます（詳細は\cite{frison2015algorithms}の13章数値実験を参照してください）。
+partial condensingのアルゴリズムについては、\cite{frison2015algorithms}の10章を参照してください。
+
+
+
 
 \bibliographystyle{unsrt}
 \bibliography{ref}
