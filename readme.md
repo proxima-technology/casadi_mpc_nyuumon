@@ -72,6 +72,8 @@ Google Colabノートブックの使い方は[こちら](how_to_run.md)をご覧
 
 [サポートサイト](https://github.com/proxima-technology/casadi_mpc_nyuumon)
 
+[GoogleによるGoogle Colabノートブックの使い方](https://colab.research.google.com/?hl=ja)
+
 ### 付録
 - **A.4** [最適制御問題の固有構造を利用したQP問題の最適化計算](https://github.com/proxima-technology/casadi_mpc_nyuumon/blob/master/suppl/ocp_structured_qp.pdf)
 
