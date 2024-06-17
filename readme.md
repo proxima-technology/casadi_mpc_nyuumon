@@ -11,7 +11,7 @@
 
 ## Google Colabへのリンク
 ここでは、本書の各章に対応するGoogle Colabノートブックへのリンクを提供します。以下のリンクから直接実行可能です。
-Google Colabノートブックの使い方は[こちら]()をご覧ください。
+Google Colabノートブックの使い方は[こちら](how_to_run.md)をご覧ください。
 
 ### 3章 CasADi入門
 - **3.3~3.7** [CasADiの基本](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter3.ipynb)
