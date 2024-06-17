@@ -1,12 +1,13 @@
 # 書籍『PythonとCasADiで学ぶモデル予測制御』サポートサイト
+
+[<img src="./design/casadi_mpc_cover.jpg" width="50%">](https://amzn.asia/d/8TwVTO3)
+
 このページは書籍『PythonとCasADiで学ぶモデル予測制御』に関する情報を公開するページです。
 
 ### 書籍の購入はこちら:
 [Amazonで購入](https://amzn.asia/d/8TwVTO3)
 
 [版元ドットコム](https://www.hanmoto.com/bd/isbn/9784065356111)
-
-[<img src="./design/casadi_mpc_cover.jpg" width="50%">](https://amzn.asia/d/8TwVTO3)
 
 ## Google Colabへのリンク
 ここでは、本書の各章に対応するGoogle Colabノートブックへのリンクを提供します。以下のリンクから直接実行可能です。
@@ -70,11 +71,14 @@
 
 [サポートサイト](https://github.com/proxima-technology/casadi_mpc_nyuumon)
 
+### 付録
+- **A.4** [最適制御問題の固有構造を利用したQP問題の最適化計算](https://github.com/proxima-technology/casadi_mpc_nyuumon/blob/master/suppl/ocp_structured_qp.pdf)
+
 ### 著者発信の情報
 
 |ソース  |リンク  |補足|
 |---|---|---|
-|弊社ホームページ|[https://proxima-ai-tech.com/](https://proxima-ai-tech.com/)|xxx|
-|弊社Zenn|[https://zenn.dev/takuya_fukatsu](https://zenn.dev/takuya_fukatsu)|xxx|
-|弊社X|[@Proxima_ai_tech](https://x.com/Proxima_ai_tech?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)|xxx|
-|弊社CEO X|[@takuya_fukatsu](https://x.com/takuya_fukatsu)|xxx|
+|ホームページ|[https://proxima-ai-tech.com/](https://proxima-ai-tech.com/)|xxx|
+|Zenn|[https://zenn.dev/takuya_fukatsu](https://zenn.dev/takuya_fukatsu)|xxx|
+|X|[@Proxima_ai_tech](https://x.com/Proxima_ai_tech?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)|xxx|
+|CEO X|[@takuya_fukatsu](https://x.com/takuya_fukatsu)|xxx|
