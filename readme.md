@@ -60,6 +60,8 @@
 ### Amazon
 [単行本](https://www.amazon.co.jp/Python%E3%81%A8CasADi%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%A2%E3%83%87%E3%83%AB%E4%BA%88%E6%B8%AC%E5%88%B6%E5%BE%A1-KS%E7%90%86%E5%B7%A5%E5%AD%A6%E5%B0%82%E9%96%80%E6%9B%B8-%E6%B7%B1%E6%B4%A5-%E5%8D%93%E5%BC%A5/dp/4065356113)
 
+[Kindle版](https://www.amazon.co.jp/%EF%BC%B0%EF%BD%99%EF%BD%94%EF%BD%88%EF%BD%8F%EF%BD%8E%E3%81%A8%EF%BC%A3%EF%BD%81%EF%BD%93%EF%BC%A1%EF%BC%A4%EF%BD%89%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%A2%E3%83%87%E3%83%AB%E4%BA%88%E6%B8%AC%E5%88%B6%E5%BE%A1-%EF%BC%AB%EF%BC%B3%E7%90%86%E5%B7%A5%E5%AD%A6%E5%B0%82%E9%96%80%E6%9B%B8-%E6%B7%B1%E6%B4%A5%E5%8D%93%E5%BC%A5-ebook/dp/B0D6MY2V2D/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=&sr=)
+
 ### 版元ドットコム
 [版元ドットコム](https://www.hanmoto.com/bd/isbn/9784065356111)
 
