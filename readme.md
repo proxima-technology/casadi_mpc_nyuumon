@@ -67,6 +67,9 @@ Google Colabノートブックの使い方は[こちら](how_to_run.md)をご覧
 ### 版元ドットコム
 [版元ドットコム](https://www.hanmoto.com/bd/isbn/9784065356111)
 
+### 講談社サイエンティフィク
+[講談社サイエンティフィク](https://www.kspub.co.jp/book/detail/5356111.html)
+
 ### 参考資料
 [CasADi公式](https://web.casadi.org/)
 
