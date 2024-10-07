@@ -4,6 +4,9 @@
 
 このページは書籍『PythonとCasADiで学ぶモデル予測制御』に関する情報を公開するページです。
 
+おかげさまで重版第2刷が出来ました！
+第1刷用の正誤表は[こちら](正誤表『PythonとCasADiで学ぶモデル予測制御』（第1刷用）.pdf)をご覧ください。
+
 ### 書籍の購入はこちら:
 [Amazonで購入](https://amzn.asia/d/8TwVTO3)
 
@@ -78,6 +81,7 @@ Google Colabノートブックの使い方は[こちら](how_to_run.md)をご覧
 [GoogleによるGoogle Colabノートブックの使い方](https://colab.research.google.com/?hl=ja)
 
 ### 付録
+- **正誤表** [正誤表（第1刷用）](正誤表『PythonとCasADiで学ぶモデル予測制御』（第1刷用）.pdf)
 - **A.4** [最適制御問題の固有構造を利用したQP問題の最適化計算](https://github.com/proxima-technology/casadi_mpc_nyuumon/blob/master/suppl/ocp_structured_qp.pdf)
 
 ### 著者発信の情報
