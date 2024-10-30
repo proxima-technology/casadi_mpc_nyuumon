@@ -86,9 +86,9 @@ Google Colabノートブックの使い方は[こちら](how_to_run.md)をご覧
 
 ### 著者発信の情報
 
-|ソース  |リンク  |補足|
-|---|---|---|
-|ホームページ|[https://proxima-ai-tech.com/](https://proxima-ai-tech.com/)|xxx|
-|Zenn|[https://zenn.dev/takuya_fukatsu](https://zenn.dev/takuya_fukatsu)|xxx|
-|X|[@Proxima_ai_tech](https://x.com/Proxima_ai_tech?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)|xxx|
-|CEO X|[@takuya_fukatsu](https://x.com/takuya_fukatsu)|xxx|
+|ソース  |リンク  |
+|---|---|
+|ホームページ|[https://proxima-ai-tech.com/](https://proxima-ai-tech.com/)|
+|Zenn|[https://zenn.dev/takuya_fukatsu](https://zenn.dev/takuya_fukatsu)|
+|X|[@Proxima_ai_tech](https://x.com/Proxima_ai_tech?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)|
+|CEO X|[@takuya_fukatsu](https://x.com/takuya_fukatsu)|
