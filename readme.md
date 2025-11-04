@@ -29,7 +29,8 @@ Google Colabノートブックの使い方は[こちら](how_to_run.md)をご覧
 
 ### 5章 連続時間のモデル予測制御
 - **5.6** [倒立振子に対するMPC（書籍版）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter5.ipynb)
-- **5.6** [倒立振子に対するMPC（更新版：FATROP対応）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter5_fatrop.ipynb)
+- **5.6** [倒立振子に対するMPC（更新版v2：FATROP対応）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter5_v2_fatrop.ipynb)
+- **5.6** [倒立振子に対するMPC（更新版v3：コスト近似改善）](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter5_v3_improved_cost_approx.ipynb)
 
 ### 6章 モデル予測制御の実装に向けて
 - **6.2.2** [直接的単一シューティング法と直接的多重シューティング法の比較](https://colab.research.google.com/github/proxima-technology/casadi_mpc_nyuumon/blob/master/src/chapter6_single_shooting.ipynb)
